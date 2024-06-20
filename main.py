@@ -884,11 +884,6 @@ def flatten_functions(nested_list):
                 flatten(subitem)
         elif isinstance(item, tuple) and len(item) > 0 and item[0] == 'function':
             flattened_list.append(item)
-        else:
-            # In case there are other nested structures
-            for elem in item:
-                if isinstance(elem, list) or isinstance(elem, tuple):
-                    flatten(elem)
 
     flatten(nested_list)
     return flattened_list
