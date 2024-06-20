@@ -1,0 +1,10 @@
+def poop {
+    j,
+    pop
+}
+
+def main() {
+    poop x;
+    let y = x.hello;
+    return 0;
+}

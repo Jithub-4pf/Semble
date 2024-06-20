@@ -1,0 +1,11 @@
+def print(s:String) {
+    printf('%s\n', s.value);
+    return 0;
+}
+
+def input(prompt) {
+    printf(prompt);
+    let buf = malloc(100);
+    scanf('%s', buf);
+    return buf;
+}

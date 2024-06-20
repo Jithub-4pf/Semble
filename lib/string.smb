@@ -1,0 +1,43 @@
+def String {
+    value,
+    length
+} (
+    // Function to check if two strings are equal
+    def equals(s:String) {
+        printf('s1:\"%s\", s2:\"%s\"\n', self.value, s.value);
+        if (strcmp(s.value, self.value) == 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    // Function to get the length of the string
+    def length() {
+        return self.length;
+    }
+    
+    def substring(start, end) {
+        let len = end - start;
+        let substr = malloc((len + 1) * 1);
+        strncpy(substr, self.value + start, len);
+        substr[len] = '\0';
+        return { substr, len };
+    }
+
+    // Function to concatenate another string
+    def concat(s:String) {
+        let new_len = self.length + s.length;
+        let new_str = malloc((new_len + 1) * 1);
+        
+        strcpy(new_str, self.value);
+        strcat(new_str, s.value);
+        
+        return { new_str, new_len };
+    }
+    
+)
+
+// Constructor for String
+def String(s) {
+    return {s, strlen(s)};
+}

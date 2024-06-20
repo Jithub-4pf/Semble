@@ -1,0 +1,42 @@
+// semblelang Vectors library
+
+def Vector {
+    pointer,
+    size,
+    capacity
+} (
+// Function to append a value to the vector
+    def append(value) {
+        // If vector is full, resize it by doubling its capacity
+        if (self.size == self.capacity) {
+            printf('%d\n', self.pointer);
+            printf('%d\n', (self.capacity*8));
+            let j = malloc((self.capacity*8));
+            
+            memcpy(j, self.pointer, (self.size*4));
+            printf('%d\n', j[1]);
+            self.pointer=j;
+            self.capacity = self.capacity * 2;
+        }
+
+        if (!self.pointer) {
+            // Handle memory allocation failure
+            printf('Error: Memory allocation failed\n');
+            return 1;
+        }
+        
+        // Append the value to the vector
+        self.pointer[self.size] = value;
+        self.size = self.size + 1;
+
+        return 0;
+    }
+
+)
+
+def Vector(size, vals) {
+    printf('%d\n', vals);
+    Vector v = {vals, size, (size+1)};
+    return v;
+}
+

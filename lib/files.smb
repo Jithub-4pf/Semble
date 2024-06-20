@@ -1,0 +1,165 @@
+// files.smb library for SembleLang
+
+// Define a structure to represent a file
+def File {
+    filename,
+    openas,
+    file_pointer
+}
+
+// Constructor for File
+def File(filename, openas) {
+    printf("hello\n");
+    // Open the file
+    let file_p = fopen(filename, openas);
+    printf("hello\n");
+    // Check if file opened successfully
+    if (!file_p) {
+        print("Error: Could not open file ", filename);
+        return NULL;
+    }
+    
+    // Create File object
+    File f = {filename, openas, file_p};
+    return f;
+}
+
+// Function to write to a file
+def write(file:File, text) {
+    // Check if file pointer is valid
+    if (!file.file_pointer) {
+        print("Error: Invalid file pointer");
+        return 1;
+    }
+    
+    // Write text to file
+    fprintf(file.file_pointer, text);
+}
+
+// Function to close a file
+def close(file:File) {
+    // Check if file pointer is valid
+    if (!file.file_pointer) {
+        print("Error: Invalid file pointer");
+        return 1;
+    }
+    
+    // Close the file
+    fclose(file.file_pointer);
+}
+
+// Function to print to a file
+def file_print(filename, text) {
+    // Open file in "append" mode
+    File temp_f = File(filename, "a");
+    
+    // Check if file opened successfully
+    if (!temp_f) {
+        print("Error: Could not open file ", filename);
+        return 1;
+    }
+    
+    // Write text to file
+    fprintf(temp_f.file_pointer, text);
+    
+    // Close the file
+    close(temp_f);
+    
+    return 0;
+} 
+
+// Function to read from a file
+def read(file:File, buffer_size) {
+    // Check if file pointer is valid
+    if (!file.file_pointer) {
+        print("Error: Invalid file pointer");
+        return NULL;
+    }
+    
+    // Allocate memory for buffer
+    let buffer = malloc(buffer_size);
+    
+    // Check if memory allocation was successful
+    if (!buffer) {
+        print("Error: Memory allocation failed");
+        return NULL;
+    }
+    
+    // Read from file into buffer
+    fgets(buffer, buffer_size, file.file_pointer);
+    
+    // Return buffer containing file content
+    return buffer;
+}
+
+// Function to check if a file exists
+def file_exists(filename) {
+    // Open file in "read" mode
+    File temp_f = File(filename, "r");
+    
+    // Check if file opened successfully
+    if (!temp_f) {
+        // File does not exist
+        return false;
+    }
+    
+    // Close the file
+    close(temp_f);
+    
+    // File exists
+    return true;
+}
+
+// Function to rename a file
+def file_rename(file:File, new_filename) {
+    // Rename file
+    if (rename(file.filename, new_filename) != 0) {
+        printf("Error: Could not rename file %s", file.filename);
+        return 1;
+    }
+    
+    return 0;
+}
+
+def file_delete_with_name(filename) {
+    // Delete file
+    printf("%s", filename);
+    if (remove(filename) != 0) {
+        printf("Error: Could not delete file %s\n", filename);
+        return 1;
+    }
+}
+
+// Function to delete a File
+def file_delete(file:File) {
+    // Delete file
+    if (remove(file.filename) != 0) {
+        printf("Error: Could not delete file %s\n", file.filename);
+        return 1;
+    }
+    
+    return 0;
+}
+
+// Function to create a directory
+def create_directory(dirname) {
+    // Create directory
+    if (mkdir(dirname) != 0) {
+        printf("Error: Could not create directory %s", dirname);
+        return 1;
+    }
+    
+    return 0;
+}
+
+
+// Function to remove a directory
+def remove_directory(dirname) {
+    // Remove directory
+    if (rmdir(dirname) != 0) {
+        printf("Error: Could not remove directory %s", dirname);
+        return 1;
+    }
+    
+    return 0;
+}
