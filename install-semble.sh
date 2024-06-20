@@ -2,8 +2,10 @@ echo "Installing Semblelang!"
 git clone https://github.com/Jithub-4pf/Semble.git
 mkdir ~/.semble
 cp -rf Semble ~/.semble
-rm -rf Semble
-g++ -o semble ~~/.semble/Semble/main.cpp
+sudo rm -rf Semble
+g++ -o ~/.semble/Semble/semble ~/.semble/Semble/main.cpp
+echo "done compiling"
 sudo chmod 775 ~/.semble/Semble/semble
-export PATH=~/.semble/Semble:$PATH
+sudo export PATH=~/.semble/Semble:$PATH
+sudo mv ~/.semble/Semble/semble /usr/bin/semble
 echo "done!"
