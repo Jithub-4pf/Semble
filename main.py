@@ -1663,9 +1663,10 @@ def add_file_entry(filepath):
         lines = sum(1 for line in fp)
     for line in range(lines):
         files_structure.append(filepath)
-    
 
-def preprocess(file_path, library_folder="~/.semble/Semble/lib"):
+home = os.getenv("HOME")
+
+def preprocess(file_path, library_folder=home+"/.semble/Semble/lib"):
     global imports, macros, files_structure
     codeStr = ""
     with open(file_path, "r") as file:
