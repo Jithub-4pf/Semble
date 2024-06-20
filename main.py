@@ -1,6 +1,7 @@
 import ply.lex as lex
 from termcolor import colored
 
+
 COLOR_ERROR = 'red'
 COLOR_CODE = 'yellow'
 files_structure = []
@@ -199,6 +200,7 @@ class Argument:
 import ply.yacc as yacc
 import os
 
+file = os.argv[1]
 
 lineno = 1
 
@@ -1697,7 +1699,7 @@ parser = yacc.yacc()
 
 
 
-codeStr = preprocess("main.smb")
+codeStr = preprocess(file)
 parser.parse(codeStr)
 
 
