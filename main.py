@@ -1665,7 +1665,7 @@ def add_file_entry(filepath):
         files_structure.append(filepath)
     
 
-def preprocess(file_path, library_folder="lib"):
+def preprocess(file_path, library_folder="~/.semble/Semble/lib"):
     global imports, macros, files_structure
     codeStr = ""
     with open(file_path, "r") as file:
